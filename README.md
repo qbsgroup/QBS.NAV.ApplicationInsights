@@ -7,7 +7,6 @@ Application Insights is an incredibly powerful tool to analyse telemetry for Bus
 In this repository you can read how to use KQL analysis on older versions of like NAV2018 or Business Central 14
 
 ![Chart1](/Images/SlowQueriesPerHour.png)
-Format: ![Alt Text](url)
 
 ## Prerequisites
 
@@ -56,9 +55,10 @@ Be careful not to blow up your service tier!
 You can see exactly which object is causing issues
 
 ![Details](/Images/SlowQueriesDetails.png)
-Format: ![Alt Text](url)
 
 And even get the full stack trace
 
 ![Stacktrace](/Images/StackTrace.png)
-Format: ![Alt Text](url)
+
+# Learn More
+QBS Group offers guided workshops and PTS services around Application Insights. More information can be found [here](https://www.qbsgroup.com/qbstraining/application-insights-for-business-central-2/).
