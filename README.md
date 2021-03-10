@@ -33,6 +33,32 @@ Each row in the Windows Event log gets a row in the Event table with a timestamp
 
 In order to get meaningful information we need to use regular expressions on the **ParameterXML** column such as this example:
 
+#### Object Type
+
 `object = strcat(extract("AppObjectType:\\s{1,}([^\\ ]+)\\s", 1, ParameterXml), extract("AppObjectId:\\s{1,}([^\\ ]+)\\s", 1, ParameterXml))`
 
-This reads the object type and id from the Parameter XML.
+#### Execution Time
+`executionTime = toint(executionTime = extract("Execution time:\\s{1,}([^\\ ]+)\\s", 1, ParameterXml))`
+
+#### SQL Query
+`query = strcat(extract("SELECT\\s.*FROM\\s.*WHERE\\s.*", 0, ParameterXml), extract("DELETE\\s.*FROM\\s.*WHERE\\s.*", 0, ParameterXml), extract("UPDATE\\s.*SET\\s.*WHERE\\s.*", 0, ParameterXml), extract("BeginTransaction\\s.*", 0, ParameterXml), extract("Commit\\s.*", 0, ParameterXml), extract("Rollback\\s.*", 0, ParameterXml), extract("INSERT\\s.*VALUES\\s.*", 0, ParameterXml), extract("SELECT\\s.*FROM\\s.*", 0, ParameterXml), extract("DECLARE\\s.*INSERT\\s.*", 0, ParameterXml))`
+
+## The Caveat
+
+This is a fantastic alternative approach for performance troubleshooting, finding frequent error messages, dangling job queue processes and failed print jobs.
+
+Every Message and Error can be written to the event log and thus the Azure Log. The standard treshold for query duration is 1 second. This is a good start. After a while if your system is running smooth you can start logging more queries even downto 50ms on the Job Queue or 250ms on a UI tier.
+
+Be careful not to blow up your service tier!
+
+# The Result
+
+You can see exactly which object is causing issues
+
+![Details](/Images/SlowQueriesDetails.png)
+Format: ![Alt Text](url)
+
+And even get the full stack trace
+
+![Stacktrace](/Images/StackTrace.png)
+Format: ![Alt Text](url)
