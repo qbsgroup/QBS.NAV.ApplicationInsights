@@ -1,0 +1,7 @@
+Event 
+| where ParameterXml contains "Message: Long running SQL statement"
+| where ParameterXml contains "AppObjectType"
+| summarize count() by bin(TimeGenerated, 1h)
+| order by TimeGenerated desc
+| render columnchart 
+

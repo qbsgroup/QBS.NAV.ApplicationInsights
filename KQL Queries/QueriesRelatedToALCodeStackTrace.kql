@@ -1,0 +1,8 @@
+Event 
+| where ParameterXml contains "AppObjectType"
+| extend object = strcat(extract("AppObjectType:\\s{1,}([^\\ ]+)\\s", 1, ParameterXml), extract("AppObjectId:\\s{1,}([^\\ ]+)\\s", 1, ParameterXml))
+| extend executionTime = toint(executionTime = extract("Execution time:\\s{1,}([^\\ ]+)\\s", 1, ParameterXml))
+| extend query = strcat(extract("SELECT\\s.*FROM\\s.*WHERE\\s.*", 0, ParameterXml), extract("DELETE\\s.*FROM\\s.*WHERE\\s.*", 0, ParameterXml), extract("UPDATE\\s.*SET\\s.*WHERE\\s.*", 0, ParameterXml), extract("BeginTransaction\\s.*", 0, ParameterXml), extract("Commit\\s.*", 0, ParameterXml), extract("Rollback\\s.*", 0, ParameterXml), extract("INSERT\\s.*VALUES\\s.*", 0, ParameterXml), extract("SELECT\\s.*FROM\\s.*", 0, ParameterXml), extract("DECLARE\\s.*INSERT\\s.*", 0, ParameterXml))
+| where ParameterXml contains "Message: Long running SQL statement"
+| order by TimeGenerated desc
+
