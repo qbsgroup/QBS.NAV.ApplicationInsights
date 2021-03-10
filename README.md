@@ -13,5 +13,5 @@ Format: ![Alt Text](url)
 
 The examples in here run on Azure Log Analytics workspaces. This can be called the "big sister" of what is now Application Insights and you can setup a connection directly to your service tier.
 
-If your service tier runs as a virtual machine on Azure this is as easy as a few checkmarks in the configuration. You can find information about this in the Microsoft Docs here.[Docs](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/data-sources-windows-events)
+If your service tier runs as a virtual machine on Azure this is as easy as a few checkmarks in the configuration. You can find information about this in the Microsoft Docs [here](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/data-sources-windows-events).
 
